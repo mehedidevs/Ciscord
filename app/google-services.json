@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "633284709246",
+    "project_id": "ciscord-8f1bb",
+    "storage_bucket": "ciscord-8f1bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633284709246:android:99cba42eb634d83257012f",
+        "android_client_info": {
+          "package_name": "com.ciscord.talk.chat.hangout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6ty1Cjtvs1yhWAWbw6hxb-2Th_7gRplA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
