@@ -51,6 +51,7 @@
         android:textColorHint="#A0A0A0" />
 
     <Button
+        android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
@@ -58,6 +59,7 @@
         android:textColor="#FFFFFF" />
 
     <TextView
+        android:id="@+id/loginBackBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

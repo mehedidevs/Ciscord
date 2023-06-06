@@ -39,6 +39,7 @@
         android:textColorHint="#A0A0A0" />
 
     <Button
+        android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
@@ -46,6 +47,7 @@
         android:textColor="#FFFFFF" />
 
     <TextView
+        android:id="@+id/forgetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -53,6 +55,7 @@
         android:textColor="#3F51B5" />
 
     <TextView
+        android:id="@+id/createNewAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
