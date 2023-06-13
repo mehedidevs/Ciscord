@@ -80,10 +80,8 @@ class RegisterFragment : Fragment() {
     private fun saveUserToDataBase(uid: String?, email: String, name: String) {
 
         uid?.let {
-
             val user = User(
                 userId = uid, email = email, fullName = name
-
             )
 
 

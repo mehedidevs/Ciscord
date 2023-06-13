@@ -40,11 +40,7 @@ class ProfileFragment : Fragment() {
     }
 
     companion object {
-
-
         const val USERID = "user_id_key"
-
-
     }
 
     private fun getUserByID(userId: String) {
