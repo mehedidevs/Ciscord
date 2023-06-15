@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.ciscord.talk.chat.hangout.databinding.FragmentProfileBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -18,6 +21,12 @@ class ProfileFragment : Fragment() {
     lateinit var binding: FragmentProfileBinding
 
     lateinit var userDb: DatabaseReference
+
+
+    private var userId = ""
+
+    var bundle = Bundle()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,13 +35,35 @@ class ProfileFragment : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         userDb = FirebaseDatabase.getInstance().reference
-        requireArguments().getString(USERID)?.let {
 
+
+
+
+        requireArguments().getString(USERID)?.let {
+            userId = it
             getUserByID(it)
+        }
+
+        FirebaseAuth.getInstance().currentUser?.let {
+            if (userId == it.uid) {
+                binding.chatWithUserBTn.text = Edit
+            } else {
+                binding.chatWithUserBTn.text = CHAT
+            }
+        }
+
+        binding.chatWithUserBTn.setOnClickListener {
+
+            if (binding.chatWithUserBTn.text == Edit) {
+                bundle.putString(ProfileEditFragment.USERID, userId)
+                findNavController().navigate(
+                    R.id.action_profileFragment_to_profileEditFragment,
+                    bundle
+                )
+            }
 
 
         }
-
 
 
 
@@ -41,9 +72,12 @@ class ProfileFragment : Fragment() {
 
     companion object {
         const val USERID = "user_id_key"
+        const val Edit = "Edit Profile"
+        const val CHAT = "Let's Chat"
     }
 
     private fun getUserByID(userId: String) {
+
 
         userDb.child(DBNODES.USER).child(userId).addValueEventListener(
             object : ValueEventListener {

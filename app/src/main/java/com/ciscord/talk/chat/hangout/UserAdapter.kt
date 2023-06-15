@@ -12,9 +12,7 @@ class UserAdapter(val userListener: UserListener) :
 
 
     interface UserListener {
-
         fun userItemClick(user: User)
-
     }
 
 

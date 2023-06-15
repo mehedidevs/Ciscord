@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.ciscord.talk.chat.hangout.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -24,6 +26,11 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
 
     val userList: MutableList<User> = mutableListOf()
 
+    private val auth = FirebaseAuth.getInstance()
+    private lateinit var firebaseUser: FirebaseUser
+
+    private var currentUser: User? = null
+    var bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,18 +39,30 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         userDb = FirebaseDatabase.getInstance().reference
-        binding.logoutBtn.setOnClickListener {
-            val auth = FirebaseAuth.getInstance()
 
+        FirebaseAuth.getInstance().currentUser?.let {
+            firebaseUser = it
+        }
 
-            auth.signOut().apply {
-                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-
-
+        binding.profileImage.setOnClickListener {
+            currentUser?.let {
+                bundle.putString(ProfileFragment.USERID, it.userId)
+                findNavController().navigate(R.id.action_homeFragment_to_profileFragment, bundle)
             }
 
 
         }
+
+
+
+
+        binding.logoutBtn.setOnClickListener {
+            auth.signOut().apply {
+                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+            }
+        }
+
+
         adapter = UserAdapter(this@HomeFragment)
 
         binding.userRcv.adapter = adapter
@@ -70,8 +89,14 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
 
                         val user: User = it.getValue(User::class.java)!!
 
-                        userList.add(user)
+                        if (firebaseUser.uid != user.userId) {
+                            userList.add(user)
+                        } else {
+                            currentUser = user
 
+                            setProfile()
+
+                        }
 
                     }
 
@@ -88,9 +113,14 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
 
     }
 
+    private fun setProfile() {
+        currentUser?.let {
+            binding.profileImage.load("https://thedailynewnation.com/library/1602516534_4.jpg")
+        }
+    }
+
     override fun userItemClick(user: User) {
 
-        var bundle = Bundle()
 
         bundle.putString(ProfileFragment.USERID, user.userId)
 

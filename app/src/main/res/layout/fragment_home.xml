@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#2F3136"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
@@ -44,17 +45,19 @@
             android:id="@+id/searchButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_margin="8dp"
             android:contentDescription="Search"
             android:src="@drawable/ic_search"
             app:tint="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/menuButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="Menu"
-            android:src="@drawable/ic_menu"
-            app:tint="@android:color/white" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/imgq"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
+
 
     </LinearLayout>
 
@@ -66,8 +69,10 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_user" />
 
 
