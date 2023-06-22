@@ -1,14 +1,18 @@
 package com.ciscord.talk.chat.hangout
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.bumptech.glide.Glide
 import com.ciscord.talk.chat.hangout.databinding.ItemUserBinding
 
 class UserAdapter(val userListener: UserListener) :
     ListAdapter<User, UserAdapter.UserViewHolder>(COMPARATOR) {
+    private lateinit var context: Context
 
 
     interface UserListener {
@@ -17,6 +21,7 @@ class UserAdapter(val userListener: UserListener) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        context = parent.context
         return UserViewHolder(
             ItemUserBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -34,6 +39,10 @@ class UserAdapter(val userListener: UserListener) :
                 fullName.text = it.fullName
                 userBio.text = it.bio
                 email.text = it.email
+                // profileImage.load(it.profileImage)
+
+                Glide.with(context).load(it.profileImage).placeholder(R.drawable.placeholder)
+                    .into(profileImage)
 
                 holder.itemView.setOnClickListener { _ ->
 

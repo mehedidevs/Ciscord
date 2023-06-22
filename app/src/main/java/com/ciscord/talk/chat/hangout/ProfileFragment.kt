@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.ciscord.talk.chat.hangout.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -89,6 +90,8 @@ class ProfileFragment : Fragment() {
                         binding.userEmail.text = it.email
                         binding.bio.text = it.bio
                         binding.fullName.text = it.fullName
+
+                        binding.profileImage.load(it.profileImage)
 
 
                     }
