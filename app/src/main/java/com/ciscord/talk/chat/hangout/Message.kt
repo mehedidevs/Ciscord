@@ -1,8 +1,24 @@
 package com.ciscord.talk.chat.hangout
 
-data class Message(
-    val msg: String = "",
-    val senderId: String = "",
-    val receiver: String = "",
-    val msgID: String = ""
-)
+
+interface Message {
+
+    val senderId: String
+    val receiver: String
+    var msgID: String
+}
+
+
+data class TextMessage(
+    var text: String? = null,
+    override val senderId: String = "",
+    override val receiver: String = "",
+    override var msgID: String = ""
+) : Message
+
+data class ImageMessage(
+    val imageLink: String = "",
+    override val senderId: String = "",
+    override val receiver: String = "",
+    override var msgID: String = ""
+) : Message

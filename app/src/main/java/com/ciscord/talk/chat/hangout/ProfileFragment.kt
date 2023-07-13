@@ -54,13 +54,18 @@ class ProfileFragment : Fragment() {
         }
 
         binding.chatWithUserBTn.setOnClickListener {
+            bundle.putString(ProfileEditFragment.USERID, userId)
 
             if (binding.chatWithUserBTn.text == Edit) {
-                bundle.putString(ProfileEditFragment.USERID, userId)
+
                 findNavController().navigate(
                     R.id.action_profileFragment_to_profileEditFragment,
                     bundle
                 )
+            } else {
+                findNavController().navigate(R.id.action_profileFragment_to_chatFragment, bundle)
+
+
             }
 
 
