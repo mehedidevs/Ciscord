@@ -78,7 +78,7 @@
         <androidx.recyclerview.widget.RecyclerView
             tools:listitem="@layout/item_right_chat"
             android:id="@+id/chatRcv"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="16dp"

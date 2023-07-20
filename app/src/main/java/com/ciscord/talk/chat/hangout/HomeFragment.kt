@@ -44,7 +44,7 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
             firebaseUser = it
         }
 
-        binding.profileImage.setOnClickListener {
+        binding.topBar.profileImage.setOnClickListener {
             currentUser?.let {
                 bundle.putString(ProfileFragment.USERID, it.userId)
                 findNavController().navigate(R.id.action_homeFragment_to_profileFragment, bundle)
@@ -56,10 +56,24 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
 
 
 
-        binding.logoutBtn.setOnClickListener {
+        binding.topBar.logoutBtn.setOnClickListener {
             auth.signOut().apply {
                 findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
             }
+        }
+
+        binding.topBar.createGroupButton.setOnClickListener {
+
+            findNavController().navigate(R.id.action_homeFragment_to_createGroupFragment)
+
+        }
+
+
+        binding.GroupsBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_homeFragment_to_groupsFragment)
+
+
         }
 
 
@@ -115,16 +129,12 @@ class HomeFragment : Fragment(), UserAdapter.UserListener {
 
     private fun setProfile(imageLink: String) {
         currentUser?.let {
-            binding.profileImage.load(imageLink)
+            binding.topBar.profileImage.load(imageLink)
         }
     }
 
     override fun userItemClick(user: User) {
-
-
         bundle.putString(ProfileFragment.USERID, user.userId)
-
-
         findNavController().navigate(R.id.action_homeFragment_to_profileFragment, bundle)
 
 

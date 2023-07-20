@@ -6,61 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <LinearLayout
+
+    <include
         android:id="@+id/topBar"
+        layout="@layout/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2F3136"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/logoutBtn"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_logout"
-            app:tint="@android:color/white" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="Chat Channels"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/searchButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
-            android:contentDescription="Search"
-            android:src="@drawable/ic_search"
-            app:tint="@android:color/white" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/imgq"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp" />
-
-
-    </LinearLayout>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRcv"
@@ -69,11 +23,21 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_user" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/GroupsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Groups"
+        app:icon="@drawable/ic_group_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,37 +8,33 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class ChatAdaApter(var userIDSelf: String) :
-    ListAdapter<TextMessage, ChatAdaApter.ChatViewHolder>(COMPARATOR) {
+class ChatAdaApter(var userIDSelf: String, private val chatList: MutableList<TextMessage>) :
+    RecyclerView.Adapter<ChatAdaApter.ChatViewHolder>() {
 
 
-    val LEFT: Int = 1
-    val RIGHT: Int = 2
-
-    val chatList = mutableListOf<TextMessage>()
+    private val LEFT: Int = 1
+    private val RIGHT: Int = 2
 
 
     class ChatViewHolder(var itemView: View) : RecyclerView.ViewHolder(itemView) {
         var messageTV: TextView = itemView.findViewById(R.id.chatTv)
-
-
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
 
 
-        if (viewType == RIGHT) {
+        return if (viewType == RIGHT) {
 
-            var view =
+            val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_right_chat, parent, false)
 
-            return ChatViewHolder(view)
+            ChatViewHolder(view)
         } else {
-            var view =
+            val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_left_chat, parent, false)
 
-            return ChatViewHolder(view)
+            ChatViewHolder(view)
 
         }
 
@@ -46,11 +42,8 @@ class ChatAdaApter(var userIDSelf: String) :
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        getItem(position).apply {
-            chatList.add(this)
-
-            holder.messageTV.text = this.text
-        }
+        val message = chatList[position]
+        holder.messageTV.text = message.text
 
 
     }
@@ -69,18 +62,8 @@ class ChatAdaApter(var userIDSelf: String) :
 
     }
 
-    companion object {
-        var COMPARATOR = object : DiffUtil.ItemCallback<TextMessage>() {
-            override fun areItemsTheSame(oldItem: TextMessage, newItem: TextMessage): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: TextMessage, newItem: TextMessage): Boolean {
-                return oldItem.msgID == newItem.msgID
-            }
-        }
-
-
+    override fun getItemCount(): Int {
+        return chatList.size
     }
 
 

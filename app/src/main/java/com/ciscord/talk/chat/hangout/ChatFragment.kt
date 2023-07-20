@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.bumptech.glide.Glide
 import com.ciscord.talk.chat.hangout.databinding.FragmentChatBinding
@@ -35,6 +36,17 @@ class ChatFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentChatBinding.inflate(inflater, container, false)
+
+        val layoutManger = LinearLayoutManager(requireContext())
+
+
+        layoutManger.stackFromEnd= true
+
+        binding.chatRcv.layoutManager = layoutManger
+
+
+
+
 
         requireArguments().getString(USERID)?.let {
             userIDRemote = it
@@ -105,8 +117,7 @@ class ChatFragment : Fragment() {
                 }
 
 
-                val adaApter = ChatAdaApter(userIDSelf)
-                adaApter.submitList(chatList)
+                val adaApter = ChatAdaApter(userIDSelf, chatList)
 
                 binding.chatRcv.adapter = adaApter
 
