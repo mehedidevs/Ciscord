@@ -22,3 +22,4 @@ data class ImageMessage(
     override val receiver: String = "",
     override var msgID: String = ""
 ) : Message
+
