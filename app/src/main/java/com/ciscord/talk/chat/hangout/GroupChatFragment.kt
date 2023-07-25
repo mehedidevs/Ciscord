@@ -28,6 +28,8 @@ class GroupChatFragment : Fragment() {
     lateinit var group: Group
     lateinit var chatDb: DatabaseReference
 
+    val chatList: MutableList<GroupTextMessage> = emptyList<GroupTextMessage>().toMutableList()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -89,7 +91,48 @@ class GroupChatFragment : Fragment() {
         })
 
 
+        messageToShow()
+
+
         return binding.root
+    }
+
+    private fun messageToShow() {
+
+        chatDb.child(DBNODES.GROUP_CHATS).child(group.groupID)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    chatList.clear()
+
+
+                    snapshot.children.forEach { snp ->
+                        snp.getValue(GroupTextMessage::class.java)?.let {
+
+                            chatList.add(it)
+
+
+                        }
+
+
+                    }
+
+
+                    val adaApter = GroupChatAdaApter(userIDSelf, chatList)
+
+                    binding.chatRcv.adapter = adaApter
+
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+
+            })
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -120,24 +163,25 @@ class GroupChatFragment : Fragment() {
         val msgID = chatDb.push().key ?: UUID.randomUUID().toString()
         textMessage.msgID = msgID
 
-        chatDb.child(DBNODES.GROUP_CHATS).child(group.groupID).child(msgID).setValue(textMessage).addOnCompleteListener {
+        chatDb.child(DBNODES.GROUP_CHATS).child(group.groupID).child(msgID).setValue(textMessage)
+            .addOnCompleteListener {
 
 
-            if (it.isSuccessful) {
-                Toast.makeText(requireContext(), "Message Sent", Toast.LENGTH_SHORT).show()
-                binding.inputMsg.setText("")
+                if (it.isSuccessful) {
+                    Toast.makeText(requireContext(), "Message Sent", Toast.LENGTH_SHORT).show()
+                    binding.inputMsg.setText("")
 
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    it.exception?.message ?: "Something went Wrong!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        it.exception?.message ?: "Something went Wrong!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+
 
             }
-
-
-        }
 
 
     }

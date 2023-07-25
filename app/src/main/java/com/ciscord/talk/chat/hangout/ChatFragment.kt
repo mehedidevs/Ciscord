@@ -140,7 +140,7 @@ class ChatFragment : Fragment() {
         binding.sendBtn.setOnClickListener {
 
 
-            var textMessage = TextMessage(
+            val textMessage = TextMessage(
                 text = binding.inputMsg.text.toString(),
                 senderId = userIDSelf,
                 receiver = userIDRemote,
